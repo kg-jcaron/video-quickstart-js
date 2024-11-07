@@ -39,7 +39,8 @@ let roomName = null;
     tracks: [
         audioTrack,
         videoTrack,
-    ]
+    ],
+    logLevel: 'debug',
   });
 
   // Set room name for participant 2 to join.
