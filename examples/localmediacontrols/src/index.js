@@ -26,8 +26,21 @@ let roomName = null;
   const credsP1 = await getRoomCredentials();
   const credsP2 = await getRoomCredentials();
 
+  const mediaStream = await window.navigator.mediaDevices.getUserMedia({audio: true, video: true});
+
+  const audioTrack = new Video.LocalAudioTrack(mediaStream.getAudioTracks()[0]);
+
+  audioTrack.disable();
+
+  const videoTrack = mediaStream.getVideoTracks()[0];
+
   // Create room instance and name for participants to join.
-  const roomP1 = await Video.connect(credsP1.token);
+  const roomP1 = await Video.connect(credsP1.token, {
+    tracks: [
+        audioTrack,
+        videoTrack,
+    ]
+  });
 
   // Set room name for participant 2 to join.
   roomName = roomP1.name;
